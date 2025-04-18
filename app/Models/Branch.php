@@ -22,6 +22,7 @@ class Branch extends Model
         'district_id',
         'division_id',
         'phone',
+        'regional_director',
         'login_username',
         'password_hash',
         'is_active'

@@ -54,6 +54,11 @@
                     <input type="text" name="phone" id="phone" class="w-full border border-gray-300 p-2 rounded" style="border-color: #006172;">
                     <span id="phone_error" class="text-red-500 text-xs mt-1"></span>
                 </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Regional Director</label>
+                    <input type="text" name="regional_director" id="regional_director" class="w-full border border-gray-300 p-2 rounded" style="border-color: #006172;">
+                    <span id="regional_director" class="text-red-500 text-xs mt-1"></span>
+                </div>
             </div>
             <button type="button" id="toggleLoginBtn" onclick="toggleLoginFields()" class="w-full bg-[#006172] text-white p-2 rounded hover:bg-[#004d5a]">
                 Add Login Credentials
@@ -189,6 +194,7 @@
             district_id: document.getElementById('district_id').value,
             upazila_id: document.getElementById('upazila_id').value,
             phone: document.getElementById('phone').value,
+            regional_director: document.getElementById('regional_director').value,
             login_username: document.getElementById('login_username').value,
             password: document.getElementById('password').value,
             password_confirmation: document.getElementById('password_confirmation').value

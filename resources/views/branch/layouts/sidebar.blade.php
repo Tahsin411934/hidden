@@ -70,7 +70,7 @@
                                 <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Add New
                                     Student</span>
                             </a>
-                            <a href="#"
+                            <a href="/branch/panding/students"
                                 class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
                                 <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
                                 <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Pending

@@ -3,7 +3,7 @@
 
 <div class="max-w-3xl mx-auto mt-8 p-8 rounded-xl shadow-md bg-white border border-gray-200">
     <div class="flex justify-between items-center mb-8">
-        <h1 class="text-2xl font-bold text-gray-800">Create New Student</h1>
+        <h1 class="text-2xl font-bold text-gray-800">Create New Student </h1>
         <a href="{{ route('students.index') }}" class="text-sm text-blue-600 hover:text-blue-800 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -20,6 +20,9 @@
         <div class="bg-blue-50 p-4 rounded-lg">
             <h2 class="text-lg font-semibold text-blue-800 mb-4">Personal Information</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <input type="number" name="branc_code" id="branc_code"
+                        class="w-full px-3 py-2 hidden border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                       value="{{ $branch->id }}" required>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Student Name*</label>
                     <input type="text" name="name" id="name"
@@ -84,16 +87,16 @@
             <h2 class="text-lg font-semibold text-blue-800 mb-4">Academic Information</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-    <label for="name_of_course" class="block text-sm font-medium text-gray-700 mb-1">Course Name*</label>
-    <select name="name_of_course" id="name_of_course"
+    <label for="course_id" class="block text-sm font-medium text-gray-700 mb-1">Course Name*</label>
+    <select name="course_id" id="course_id"
         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         required>
         <option value="">-- Select Course --</option>
         @foreach ($courses as $item)
-            <option value="{{ $item->course->name }}">{{ $item->course->name }}</option>
+            <option value="{{ $item->course->id }}">{{ $item->course->name }}</option>
         @endforeach
     </select>
-    <span id="name_of_course_error" class="text-red-500 text-xs mt-1"></span>
+    <span id="course_id_error" class="text-red-500 text-xs mt-1"></span>
 </div>
 
                 <div>
@@ -272,7 +275,7 @@ function validateForm() {
     // Required fields validation
     const requiredFields = [
         'name', 'father_name', 'mother_name', 'phone_number',
-        'tana', 'vill', 'address', 'name_of_course',
+        'tana', 'vill', 'address', 'course_id',
         'session', 'year', 'image', 'signature'
     ];
 

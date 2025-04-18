@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Branch;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Models\BranchCourse;
 class StudentController extends Controller
@@ -10,13 +12,41 @@ class StudentController extends Controller
     // Display a listing of students
     public function index()
     { 
-        $students = Student::where('status','panding')->get();
-        return view('branch.index', compact('students'));
+         $students = Student::whereIn('status', ['panding'])
+        ->with('branch', 'course')
+        ->get();
+        $branches = Branch::all();
+        $courses = Course::all();
+        return view('branch.index', compact('students', 'branches', 'courses'));
+    }
+    public function branchPandingStudent()
+    {  
+        $branch = session('branch');
+        $branch_id = $branch['id'];
+        $students = Student::whereIn('status', ['panding'])
+        ->where('branc_code', $branch_id)
+        ->with('branch', 'course')
+        ->get();
+        
+        
+        return view('branch.students.panding', compact('students'));
     }
 
     public function verifyStudents(){
-        $students = Student::where('status','verified')->get();
-        return view('branch.students', compact('students'));
+        $students = Student::whereIn('status', ['active'])
+                   ->with('branch', 'course')
+                   ->get();
+        $branches = Branch::all();
+        $courses = Course::all();
+        return view('branch.students',compact('students', 'branches', 'courses'));
+    }
+    public function Students() {
+        $students = Student::whereIn('status', ['active', 'completed'])
+                   ->with('branch', 'course')
+                   ->get();
+        $branches = Branch::all();
+        $courses = Course::all();
+        return view('central.students.index', compact('students', 'branches', 'courses'));
     }
     // Show the form for creating a new student
     public function create()
@@ -31,15 +61,16 @@ class StudentController extends Controller
 
     // Store a newly created student
     public function store(Request $request)
-    {
+    { 
         $validatedData = $request->validate([
             'name' => 'required|string|max:100',
             'father_name' => 'nullable|string|max:100',
+            'branc_code' => 'nullable|max:100',
             'mother_name' => 'nullable|string|max:100',
             'phone_number' => 'nullable|string|max:20',
             'tana' => 'nullable|string|max:100',
             'vill' => 'nullable|string|max:100',
-            'name_of_course' => 'nullable|string|max:150',
+            'course_id' => 'nullable|max:100',
             'address' => 'nullable|string|max:255',
             'session' => 'nullable|string|max:50',
             'year' => 'nullable|string|max:10',
@@ -67,8 +98,8 @@ class StudentController extends Controller
     }
     public function verify(Student $student)
     {
-        if ($student->status === 'verified') {
-            return response()->json(['message' => 'Student already verified'], 400);
+        if ($student->status === 'active') {
+            return response()->json(['message' => 'Student already active'], 400);
         }
     
       
@@ -94,7 +125,7 @@ class StudentController extends Controller
     
             // Update student record
             $student->update([
-                'status' => 'verified',
+                'status' => 'active',
                 'registration_no' => $newRegistrationNo,
                 'roll_no' => $newRollNo
             ]);
@@ -102,7 +133,7 @@ class StudentController extends Controller
         
     
             return response()->json([
-                'message' => 'Student verified successfully!',
+                'message' => 'Student active successfully!',
                 'registration_no' => $newRegistrationNo,
                 'roll_no' => $newRollNo
             ]);
@@ -118,11 +149,11 @@ class StudentController extends Controller
 
     public function verifyAll()
 {
-    // Get all unverified students
-    $unverifiedStudents = Student::where('status', '!=', 'verified')->get();
+    // Get all unactive students
+    $unactiveStudents = Student::where('status', '!=', 'active')->get();
 
-    if ($unverifiedStudents->isEmpty()) {
-        return response()->json(['message' => 'No unverified students found'], 400);
+    if ($unactiveStudents->isEmpty()) {
+        return response()->json(['message' => 'No unactive students found'], 400);
     }
 
     try {
@@ -139,17 +170,17 @@ class StudentController extends Controller
         $baseRollNo = $latestRoll ? (int)$latestRoll->roll_no : 0;
 
         // Verify all students with sequential numbers
-        foreach ($unverifiedStudents as $index => $student) {
+        foreach ($unactiveStudents as $index => $student) {
             $student->update([
-                'status' => 'verified',
+                'status' => 'active',
                 'registration_no' => str_pad($baseRegNo + $index + 1, 4, '0', STR_PAD_LEFT),
                 'roll_no' => $baseRollNo + $index + 1
             ]);
         }
 
         return response()->json([
-            'message' => 'All students verified successfully!',
-            'count' => $unverifiedStudents->count()
+            'message' => 'All students active successfully!',
+            'count' => $unactiveStudents->count()
         ]);
 
     } catch (\Exception $e) {

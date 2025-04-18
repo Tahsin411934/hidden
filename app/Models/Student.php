@@ -16,7 +16,7 @@ class Student extends Model
         'phone_number',
         'tana',
         'vill',
-        'name_of_course',
+        'course_id',
         'address',
         'session',
         'image',
@@ -24,11 +24,22 @@ class Student extends Model
         'signature',
         'status',
         'registration_no',
-        'roll_no'
+        'roll_no',
+        'branc_code'
     ];
 
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branc_code'); // Fixed relationship syntax
+    }
+
+public function course()
+{
+    return $this->belongsTo(Course::class,'course_id');
+}
 }

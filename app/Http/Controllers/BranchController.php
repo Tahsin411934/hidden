@@ -52,6 +52,7 @@ class BranchController extends Controller
             'district_id' => 'required|integer|max:100',
             'division_id' => 'required|integer|max:100',
             'phone' => 'nullable|string|max:20',
+            'regional_director' => 'nullable|string|max:20',
             'login_username' => 'required|string|max:100|unique:branches',
             'password' => 'required|string|min:8|confirmed',
         ]);
@@ -64,6 +65,7 @@ class BranchController extends Controller
             'district_id' => $validated['district_id'],
             'division_id' => $validated['division_id'],
             'phone' => $validated['phone'],
+            'regional_director' => $validated['regional_director'],
             'login_username' => $validated['login_username'],
             'password_hash' => $validated['password'], // Hash the password
         ]);
