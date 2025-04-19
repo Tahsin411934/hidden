@@ -34,10 +34,6 @@
                     </a>
                 </div>
 
-
-
-
-              
                 <!-- Main Menu Section -->
                 <div class="px-2">
                     <h3 class="text-xs font-semibold text-blue-300 uppercase tracking-wider mb-2 ml-3 whitespace-nowrap sidebar-text"
@@ -76,7 +72,13 @@
                                 <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Pending
                                     Students</span>
                             </a>
-                            <a href="#"
+                            <a href="/branch/active/students"
+                                class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Active
+                                    Students</span>
+                            </a>
+                            <a href="/branch/all/students"
                                 class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
                                 <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
                                 <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Students</span>
@@ -84,7 +86,76 @@
                         </div>
                     </div>
 
+                    <!-- Results Section -->
+                    <div id="result-dropdown" class="mb-1">
+                        <button
+                            class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition focus:outline-none">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4">
+                                    </path>
+                                </svg>
+                                <span
+                                    class="ml-3 whitespace-nowrap transition-all duration-300 sidebar-text text-left">Results</span>
+                            </div>
+                            <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200"
+                                id="result-dropdown-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="result-dropdown-list" class="mt-1 space-y-1 pl-8 hidden">
+                            <a href="/branch/results/upload"
+                                class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Upload Results</span>
+                            </a>
+                            <a href="/branch/results/view"
+                                class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">View Results</span>
+                            </a>
+                        </div>
+                    </div>
 
+                    <!-- Signature Upload Section -->
+                    <div id="signature-dropdown" class="mb-1">
+                        <button
+                            class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition focus:outline-none">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+                                    </path>
+                                </svg>
+                                <span
+                                    class="ml-3 whitespace-nowrap transition-all duration-300 sidebar-text text-left">Signature</span>
+                            </div>
+                            <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200"
+                                id="signature-dropdown-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="signature-dropdown-list" class="mt-1 space-y-1 pl-8 hidden">
+                            <a href="/branch/signature/upload"
+                                class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Upload Signature</span>
+                            </a>
+                            <a href="/branch/signature/manage"
+                                class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Manage Signatures</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </nav>
         </div>
 

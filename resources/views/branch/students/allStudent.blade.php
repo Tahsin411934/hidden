@@ -5,7 +5,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl font-bold">Pending Student Management</h2>
+                        <h2 class="text-2xl font-bold"> Student Management</h2>
                     </div>
 
                     @if($students->isEmpty())
@@ -49,7 +49,7 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex gap-2">
-                                            <a href="{{ route('students.show', $student->id) }}"
+                                            <a href="{{ route('Branchstudents.show', $student->id) }}"
                                                 class="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600">
                                                 Profile
                                             </a>

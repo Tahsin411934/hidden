@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Storage;
 use App\Models\Student;
 use App\Models\Branch;
 use App\Models\Course;
@@ -30,6 +30,30 @@ class StudentController extends Controller
         
         
         return view('branch.students.panding', compact('students'));
+    }
+    public function branchAllStudent()
+    {  
+        $branch = session('branch');
+        $branch_id = $branch['id'];
+        $students = Student::whereIn('status', ['active','completed'])
+        ->where('branc_code', $branch_id)
+        ->with('branch', 'course')
+        ->get();
+        
+        
+        return view('branch.students.allStudent', compact('students'));
+    }
+    public function branchActiveStudent()
+    {  
+        $branch = session('branch');
+        $branch_id = $branch['id'];
+        $students = Student::whereIn('status', ['active'])
+        ->where('branc_code', $branch_id)
+        ->with('branch', 'course')
+        ->get();
+        
+        
+        return view('branch.students.activeStudent', compact('students'));
     }
 
     public function verifyStudents(){
@@ -102,38 +126,35 @@ class StudentController extends Controller
             return response()->json(['message' => 'Student already active'], 400);
         }
     
-      
+        \DB::beginTransaction();
     
         try {
-            // Get latest registration number (numeric part only)
-            $latestReg = Student::whereNotNull('registration_no')
-                ->orderByRaw('CAST(registration_no AS UNSIGNED) DESC')
-                ->first();
+            // Get branch info from session (with validation)
+           
+            $branch_id = $student->branc_code;
+            $year = date('y'); // Last 2 digits of current year
     
+            // Get latest roll number and increment
             $latestRoll = Student::whereNotNull('roll_no')
                 ->orderByRaw('CAST(roll_no AS UNSIGNED) DESC')
                 ->first();
+            
+            $newRollNo = $latestRoll ? ((int)$latestRoll->roll_no) + 1 : 1;
     
-            // Generate new values
-            $newRegistrationNo = $latestReg
-                ? str_pad(((int)$latestReg->registration_no) + 1, 4, '0', STR_PAD_LEFT)
-                : '1111';
+            // Generate registration number: branch_id + year + padded roll_no
+            $newRegistrationNo = $branch_id . $year . str_pad($newRollNo, 4, '0', STR_PAD_LEFT);
     
-            $newRollNo = $latestRoll
-                ? ((int)$latestRoll->roll_no) + 1
-                : 1;
-    
-            // Update student record
+            // Update student
             $student->update([
                 'status' => 'active',
                 'registration_no' => $newRegistrationNo,
                 'roll_no' => $newRollNo
             ]);
     
-        
+            \DB::commit();
     
             return response()->json([
-                'message' => 'Student active successfully!',
+                'message' => 'Student activated successfully!',
                 'registration_no' => $newRegistrationNo,
                 'roll_no' => $newRollNo
             ]);
@@ -148,53 +169,68 @@ class StudentController extends Controller
     
 
     public function verifyAll()
-{
-    // Get all unactive students
-    $unactiveStudents = Student::where('status', '!=', 'active')->get();
-
-    if ($unactiveStudents->isEmpty()) {
-        return response()->json(['message' => 'No unactive students found'], 400);
-    }
-
-    try {
-        // Get latest registration and roll numbers
-        $latestReg = Student::whereNotNull('registration_no')
-            ->orderByRaw('CAST(registration_no AS UNSIGNED) DESC')
-            ->first();
-
-        $latestRoll = Student::whereNotNull('roll_no')
-            ->orderByRaw('CAST(roll_no AS UNSIGNED) DESC')
-            ->first();
-
-        $baseRegNo = $latestReg ? (int)$latestReg->registration_no : 1110;
-        $baseRollNo = $latestRoll ? (int)$latestRoll->roll_no : 0;
-
-        // Verify all students with sequential numbers
-        foreach ($unactiveStudents as $index => $student) {
-            $student->update([
-                'status' => 'active',
-                'registration_no' => str_pad($baseRegNo + $index + 1, 4, '0', STR_PAD_LEFT),
-                'roll_no' => $baseRollNo + $index + 1
-            ]);
+    {
+        // Get all inactive students (more correct term than "unactive")
+        $inactiveStudents = Student::where('status', '!=', 'active')->get();
+    
+        if ($inactiveStudents->isEmpty()) {
+            return response()->json(['message' => 'No inactive students found'], 400);
         }
-
-        return response()->json([
-            'message' => 'All students active successfully!',
-            'count' => $unactiveStudents->count()
-        ]);
-
-    } catch (\Exception $e) {
-        return response()->json([
-            'message' => 'Failed to verify students: ' . $e->getMessage()
-        ], 500);
+    
+        \DB::beginTransaction();
+    
+        try {
+            // Get branch info from session
+            
+            $year = date('y'); // Current year in 2 digits
+    
+            // Get the highest roll number
+            $latestRoll = Student::whereNotNull('roll_no')
+                ->orderByRaw('CAST(roll_no AS UNSIGNED) DESC')
+                ->first();
+            $currentRoll = $latestRoll ? (int)$latestRoll->roll_no : 0;
+    
+            // Process all students
+            foreach ($inactiveStudents as $student) {
+                $currentRoll++;
+                
+                $student->update([
+                    'status' => 'active',
+                    'registration_no' => $student->branc_code . $year . str_pad($currentRoll, 4, '0', STR_PAD_LEFT),
+                    'roll_no' => $currentRoll
+                ]);
+            }
+    
+            \DB::commit();
+    
+            return response()->json([
+                'message' => 'Students activated successfully!',
+               
+            ]);
+    
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            return response()->json([
+                'message' => 'Failed to verify students: ' . $e->getMessage()
+            ], 500);
+        }
     }
-}
     // Display a specific student
     public function show(Student $student)
-    {
+    {      
+        
         return view('students.show', compact('student'));
     }
-
+    public function branchshow($student_id)
+    {
+        $students = Student::whereIn('status', ['active', 'completed'])
+            ->where('id', $student_id)
+            ->with('branch', 'course')
+            ->firstOrFail();
+    
+        return view('branch.students.show', compact('students'));
+    }
+    
     // Show the form for editing a student
     public function edit(Student $student)
     {
@@ -211,30 +247,43 @@ class StudentController extends Controller
             'phone_number' => 'nullable|string|max:20',
             'tana' => 'nullable|string|max:100',
             'vill' => 'nullable|string|max:100',
-            'name_of_course' => 'nullable|string|max:150',
+            'course_id' => 'nullable|exists:courses,id',
             'address' => 'nullable|string|max:255',
             'session' => 'nullable|string|max:50',
             'year' => 'nullable|string|max:10',
             'status' => 'nullable|string|max:20',
+            'registration_no' => 'nullable|string|max:50',
+            'roll_no' => 'nullable|string|max:50',
+            'branc_code' => 'nullable|string|max:50',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'signature' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
         ]);
-
-        $student->update($validatedData);
-
+    
         // Handle image upload
         if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($student->image && Storage::disk('public')->exists($student->image)) {
+                Storage::disk('public')->delete($student->image);
+            }
+            
             $imagePath = $request->file('image')->store('students/images', 'public');
-            $student->update(['image' => $imagePath]);
+            $validatedData['image'] = $imagePath;
         }
-
+    
         // Handle signature upload
         if ($request->hasFile('signature')) {
+            // Delete old signature if exists
+            if ($student->signature && Storage::disk('public')->exists($student->signature)) {
+                Storage::disk('public')->delete($student->signature);
+            }
+            
             $signaturePath = $request->file('signature')->store('students/signatures', 'public');
-            $student->update(['signature' => $signaturePath]);
+            $validatedData['signature'] = $signaturePath;
         }
-
-        return redirect()->route('students.index')->with('success', 'Student updated successfully.');
+    
+        $student->update($validatedData);
+    
+        return redirect()->back()->with('success', 'Student updated successfully.');
     }
 
     // Delete a student

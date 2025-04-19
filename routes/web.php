@@ -41,6 +41,10 @@ Route::post('/students/verify-all', [StudentController::class, 'verifyAll'])
 Route::resource('students', StudentController::class)->middleware('branch.auth');
 Route::get('/central/panding/students', [StudentController::class, 'index']);
 Route::get('/branch/panding/students', [StudentController::class, 'branchPandingStudent'])->middleware('branch.auth');
+Route::get('/branch/active/students', [StudentController::class, 'branchActiveStudent'])->middleware('branch.auth');
+Route::get('/branch/all/students', [StudentController::class, 'branchAllStudent'])->middleware('branch.auth');
+Route::get('/branch/profile/{student_id}', [StudentController::class, 'branchshow'])->name('Branchstudents.show')->middleware('branch.auth');
+
 Route::get('/central/active/students', [StudentController::class, 'verifyStudents']);
 Route::get('/central/students', [StudentController::class, 'Students']);
 
