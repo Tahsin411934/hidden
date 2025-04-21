@@ -49,7 +49,7 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex gap-2">
-                                            <a href="{{ route('Branchstudents.show', $student->id) }}"
+                                            <a href="{{ route('Branchstudent.show', $student->id) }}"
                                                 class="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600">
                                                 Profile
                                             </a>

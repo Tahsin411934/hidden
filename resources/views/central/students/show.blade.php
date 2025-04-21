@@ -1,8 +1,6 @@
-@extends('branch.layouts.app', ['title' => 'Student Profile'])
+<x-app-layout>
 
-@section('content')
-
-<div class="max-w-7xl mx-auto  bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-100">
+<div class="max-w-7xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-100">
     <!-- Header with gradient background -->
     <div class="bg-gradient-to-r from-[#006172] to-[#0096a0] py-4 px-8 text-white">
         <div class="flex justify-between items-center">
@@ -29,17 +27,19 @@
                 <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 shadow-sm">
                     <div class="flex flex-col items-center">
                         <div class="relative mb-4">
-                            @if ($students->image)
-                                <img src="{{ asset('storage/' . $students->image) }}" 
-                                     class="w-40 h-40 rounded-full object-cover border-4 border-white shadow-lg">
-                            @else
-                                <div class="w-40 h-40 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 border-4 border-white shadow-lg">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                    </svg>
-                                </div>
-                            @endif
-                            <input type="file" name="image" class="hidden" id="imageUpload">
+                            <div id="imagePreviewContainer">
+                                @if ($students->image)
+                                    <img id="imagePreview" src="{{ asset('storage/' . $students->image) }}" 
+                                         class="w-40 h-40 rounded-full object-cover border-4 border-white shadow-lg">
+                                @else
+                                    <div id="imagePreview" class="w-40 h-40 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 border-4 border-white shadow-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                        </svg>
+                                    </div>
+                                @endif
+                            </div>
+                            <input type="file" name="image" class="hidden" id="imageUpload" accept="image/*">
                             <label for="imageUpload" class="absolute bottom-0 right-0 bg-[#006172] p-2 rounded-full text-white cursor-pointer hover:bg-[#004d5c] transition-all shadow-md hidden">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
@@ -159,16 +159,18 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Signature</label>
                             <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-[#006172] transition-colors">
-                                @if ($students->signature)
-                                    <img src="{{ asset('storage/' . $students->signature) }}" class="w-full h-32 object-contain mx-auto mb-2">
-                                @else
-                                    <div class="w-full h-32 bg-gray-100 rounded flex items-center justify-center text-gray-400">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                        </svg>
-                                    </div>
-                                @endif
-                                <input type="file" name="signature" class="hidden" id="signatureUpload">
+                                <div id="signaturePreviewContainer">
+                                    @if ($students->signature)
+                                        <img id="signaturePreview" src="{{ asset('storage/' . $students->signature) }}" class="w-full h-32 object-contain mx-auto mb-2">
+                                    @else
+                                        <div id="signaturePreview" class="w-full h-32 bg-gray-100 rounded flex items-center justify-center text-gray-400">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                            </svg>
+                                        </div>
+                                    @endif
+                                </div>
+                                <input type="file" name="signature" class="hidden" id="signatureUpload" accept="image/*">
                                 <label for="signatureUpload" class="mt-2 cursor-pointer text-sm text-[#006172] hover:text-[#004d5c] font-medium hidden">
                                     <span class="underline">Upload new signature</span>
                                 </label>
@@ -203,7 +205,12 @@
     const formInputs = document.querySelectorAll('#studentForm input:not([type="file"])');
     const fileInputs = document.querySelectorAll('#studentForm input[type="file"]');
     const fileUploadLabels = document.querySelectorAll('label[for="imageUpload"], label[for="signatureUpload"]');
+    const imageUpload = document.getElementById('imageUpload');
+    const signatureUpload = document.getElementById('signatureUpload');
+    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+    const signaturePreviewContainer = document.getElementById('signaturePreviewContainer');
 
+    // Edit button click handler
     editBtn.addEventListener('click', () => {
         // Enable all text inputs
         formInputs.forEach(input => {
@@ -224,5 +231,57 @@
         editBtn.classList.add('hidden');
         saveBtn.classList.remove('hidden');
     });
+
+    // Image preview for profile image
+    imageUpload.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                // Remove the existing preview (whether it's an image or div)
+                const existingPreview = document.getElementById('imagePreview');
+                if (existingPreview) {
+                    existingPreview.remove();
+                }
+                
+                // Create new image element
+                const img = document.createElement('img');
+                img.id = 'imagePreview';
+                img.src = event.target.result;
+                img.className = 'w-40 h-40 rounded-full object-cover border-4 border-white shadow-lg';
+                
+                // Insert the new image
+                imagePreviewContainer.innerHTML = '';
+                imagePreviewContainer.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Image preview for signature
+    signatureUpload.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                // Remove the existing preview (whether it's an image or div)
+                const existingPreview = document.getElementById('signaturePreview');
+                if (existingPreview) {
+                    existingPreview.remove();
+                }
+                
+                // Create new image element
+                const img = document.createElement('img');
+                img.id = 'signaturePreview';
+                img.src = event.target.result;
+                img.className = 'w-full h-32 object-contain mx-auto mb-2';
+                
+                // Insert the new image
+                signaturePreviewContainer.innerHTML = '';
+                signaturePreviewContainer.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
 </script>
-@endsection
+</x-app-layout>

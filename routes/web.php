@@ -8,9 +8,13 @@ use Devfaysal\BangladeshGeocode\Models\Upazila;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\BranchCourseController;
+use App\Http\Controllers\SignatureController;
 
 use Illuminate\Http\Request;
 
+
+
+Route::resource('signatures', SignatureController::class);
 Route::get('/', function () {
     return view('welcome');
 });
@@ -23,6 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/student/profile/{student_id}', [StudentController::class, 'showCentralStudent'])->name('show.student');
+    Route::resource('signatures', SignatureController::class);
 });
 
 
@@ -38,12 +44,13 @@ Route::post('/students/{student}/verify', [StudentController::class, 'verify'])-
 Route::post('/students/verify-all', [StudentController::class, 'verifyAll'])
     ->name('students.verify-all');
 
-Route::resource('students', StudentController::class)->middleware('branch.auth');
+Route::resource('students', StudentController::class);
 Route::get('/central/panding/students', [StudentController::class, 'index']);
 Route::get('/branch/panding/students', [StudentController::class, 'branchPandingStudent'])->middleware('branch.auth');
 Route::get('/branch/active/students', [StudentController::class, 'branchActiveStudent'])->middleware('branch.auth');
 Route::get('/branch/all/students', [StudentController::class, 'branchAllStudent'])->middleware('branch.auth');
 Route::get('/branch/profile/{student_id}', [StudentController::class, 'branchshow'])->name('Branchstudents.show')->middleware('branch.auth');
+Route::get('/branch/student/profile/{student_id}', [StudentController::class, 'branchStudentShow'])->name('Branchstudent.show')->middleware('branch.auth');
 
 Route::get('/central/active/students', [StudentController::class, 'verifyStudents']);
 Route::get('/central/students', [StudentController::class, 'Students']);

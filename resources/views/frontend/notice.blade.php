@@ -1,58 +1,72 @@
 <style>
-        .marquee-container {
-            overflow: hidden;
-            position: relative;
-            /* background-color: #FEF3C7; 
-            border: 1px solid #FACC15;  */
-            color: #92400E; /* yellow-800 */
-            height: 45px;
-            display: flex;
-            width: 90%;
-            margin: 0 auto;
-            align-items: center;
-        }
+    .marquee-container {
+        overflow: hidden;
+        position: relative;
+        color: #92400E;
+        
+        display: flex;
+        width: 90%;
+        margin: 0 auto;
+        align-items: center;
+    }
 
+    .notice-text {
+        flex-shrink: 0;
+        background-color: #F37021;
+        color: white;
+        padding: 0 1rem;
+        height: 100%;
+        display: none; /* Hidden by default */
+        align-items: center;
+        font-weight: bold;
+        z-index: 10;
+    }
+
+    .marquee-wrapper {
+        position: relative;
+        overflow: hidden;
+        flex-grow: 1;
+    }
+
+    .marquee-text {
+        display: inline-block;
+        white-space: nowrap;
+        will-change: transform;
+        animation: marquee 25s linear infinite;
+        font-weight: 600;
+        padding-left: 1rem;
+    }
+
+    @keyframes marquee {
+        0% {
+            transform: translateX(100%);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+
+    /* Show notice text on lg screens and above */
+    @media (min-width: 1024px) {
         .notice-text {
-            flex-shrink: 0;
-            background-color: #F37021;
-            color: white;
-            padding: 0 1rem;
-            height: 100%;
-            
-            align-items: center;
-            font-weight: bold;
-            z-index: 10;
+            display: flex;
         }
-
-        .marquee-wrapper {
-            position: relative;
-            overflow: hidden;
-            flex-grow: 1;
-        }
-
         .marquee-text {
-            display: inline-block;
-            white-space: nowrap;
-            will-change: transform;
-            animation: marquee 25s linear infinite;
-            font-weight: 600;
             padding-left: 1rem;
         }
+    }
 
-        @keyframes marquee {
-            0% {
-                transform: translateX(100%);
-            }
-            100% {
-                transform: translateX(-100%);
-            }
+    /* Remove left padding on small screens when notice is hidden */
+    @media (max-width: 1023px) {
+        .marquee-text {
+            padding-left: 0;
         }
-    </style>
+    }
+</style>
+
 <div class="border-b border-[#92400E] mb-[2px]">
-
-
-    <div class="marquee-container  text-sm w-[90%] mx-auto">
-        <div class="notice-text hidden lg:flex">
+    <div class="marquee-container lg:h-11 text-sm w-[90%] mx-auto">
+        <div class="notice-text">
             📢 Notice
         </div>
         <div class="marquee-wrapper">
@@ -61,4 +75,4 @@
             </span>
         </div>
     </div>
-    </div>
+</div>

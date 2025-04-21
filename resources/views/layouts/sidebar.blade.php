@@ -164,6 +164,12 @@
                         </svg>
                         <span class="ml-3 whitespace-nowrap transition-all duration-300 sidebar-text">Reports</span>
                     </a>
+                    <a href="/signatures/create" class="flex items-center px-3 py-2.5 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition mb-1">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732zM12 15l-3-3m0 0l3-3m-3 3h6"></path>
+</svg>
+                        <span class="ml-3 whitespace-nowrap transition-all duration-300 sidebar-text">Signature</span>
+                    </a>
                 </div>
             </nav>
         </div>

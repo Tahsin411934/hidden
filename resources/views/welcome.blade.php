@@ -1,13 +1,13 @@
 <x-guest-layout>
-  <section class="bg-white text-gray-800 w-[85%] mx-auto">
+  <section class="bg-white text-gray-800 w-[85%] mt-1 mx-auto">
     <div class="container flex flex-col-reverse lg:flex-row items-center lg:py-18 justify-between gap-8 px-6 py-12 mx-auto">
       
       <!-- Text Content -->
       <div class="flex flex-col justify-center text-center lg:text-left lg:max-w-xl">
-        <h1 class="text-4xl md:text-4xl font-bold text-[#045E7B] leading-tight">
+        <h1 class="text-2xl md:text-4xl font-bold text-[#045E7B] leading-tight">
           Youth Skill Development Bangladesh
         </h1>
-        <h2 class="text-xl text-[#F37021] md:text-[18px] font-semibold mt-3">
+        <h2 class="text-base text-[#F37021] md:text-[18px] font-semibold mt-3">
         Approved by the Government of the People's Republic of Bangladesh
         </h2>
         

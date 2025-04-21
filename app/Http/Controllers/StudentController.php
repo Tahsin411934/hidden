@@ -223,12 +223,28 @@ class StudentController extends Controller
     }
     public function branchshow($student_id)
     {
-        $students = Student::whereIn('status', ['active', 'completed'])
-            ->where('id', $student_id)
+        $students = Student::where('id', $student_id)
             ->with('branch', 'course')
             ->firstOrFail();
     
         return view('branch.students.show', compact('students'));
+    }
+    public function branchStudentShow($student_id)
+    {
+        $students = Student::where('id', $student_id)
+            ->with('branch', 'course')
+            ->firstOrFail();
+    
+        return view('branch.students.showStudent', compact('students'));
+    }
+    
+    public function showCentralStudent($student_id)
+    {
+        $students = Student::where('id', $student_id)
+            ->with('branch', 'course')
+            ->firstOrFail();
+    
+        return view('central.students.show', compact('students'));
     }
     
     // Show the form for editing a student
