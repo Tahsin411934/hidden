@@ -4,7 +4,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl font-bold">Active Student Management</h2>
+                        <h2 class="text-2xl font-bold">Admit card Management</h2>
                         <div class="flex space-x-4">
                             <!-- Refresh Button -->
                             <button id="refresh-btn"
@@ -62,7 +62,7 @@
                     @else
                     <div class="overflow-x-auto">
                         <table id="example" class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                            <thead class="bg-gray-100">
                                 <tr>
                                     <th class="px-6 py-3 text-left">Name</th>
                                     <th class="px-6 py-3 text-left">Roll</th>
@@ -77,17 +77,17 @@
                                 @foreach($students as $student)
                                 <tr id="student-row-{{ $student->id }}" data-branch="{{ $student->branc_code }}"
                                     data-course="{{ $student->course_id }}">
-                                    <td class="px-6 py-4">{{ $student->name }}</td>
-                                    <td class="px-6 py-4">
+                                    <td class="border border-gray-300 rounded px-2 py-10 break-words whitespace-normal resize-none">{{ $student->name }}</td>
+                                    <td class=" border border-gray-300 rounded px-2 py-1 break-words whitespace-normal resize-none">
                                         <div>{{ $student->roll_no  }}</div>
 
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class=" border border-gray-300 rounded px-2 py-1 break-words whitespace-normal resize-none">
                                         <div>{{ $student->registration_no  }}</div>
 
                                     </td>
-                                    <td class="px-6 py-4">{{ $student->course->name }}</td>
-                                    <td class="px-6 py-4">
+                                    <td class=" border border-gray-300 rounded px-2 py-1 break-words whitespace-normal resize-none">{{ $student->course->name }}</td>
+                                    <td class="border border-gray-300 rounded px-2 py-1 break-words whitespace-normal resize-none">
                                         <span
                                             class="px-2 py-1 text-xs rounded-full 
                                             {{ $student->status === 'verified' ? 'bg-green-100 text-green-800' : 
@@ -95,7 +95,7 @@
                                             {{ $student->status }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class=" border border-gray-300 rounded px-2 py-1 break-words whitespace-normal resize-none">
                                         <span
                                             class="px-2 py-1 text-xs rounded-full 
                                             {{ $student->status === 'verified' ? 'bg-green-100 text-green-800' : 
@@ -103,7 +103,7 @@
                                             {{ $student->branc_code }}- {{ $student->branch->branch_name }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="w-56 border border-gray-300 rounded px-2 py-1 break-words whitespace-normal resize-none">
                                         <div class="flex gap-2">
                                             <!-- Profile Button -->
                                            
