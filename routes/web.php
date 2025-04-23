@@ -9,6 +9,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\BranchCourseController;
 use App\Http\Controllers\SignatureController;
+use App\Http\Controllers\PrintController;
 
 use Illuminate\Http\Request;
 
@@ -29,6 +30,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/student/profile/{student_id}', [StudentController::class, 'showCentralStudent'])->name('show.student');
     Route::resource('signatures', SignatureController::class);
+    Route::get('/admid-card/{id}', [PrintController::class, 'admitCard'])->name('admit-print.page');
+    Route::get('/students/admid-card/generate', [PrintController::class, 'students'])->name('admit-print.page');
+    Route::post('/admit-card/{id}', [PrintController::class, 'admitCard'])
+    ->name('admit-print.page');
+    Route::get('/central/panding/students', [StudentController::class, 'index']);
 });
 
 
@@ -45,7 +51,7 @@ Route::post('/students/verify-all', [StudentController::class, 'verifyAll'])
     ->name('students.verify-all');
 
 Route::resource('students', StudentController::class);
-Route::get('/central/panding/students', [StudentController::class, 'index']);
+
 Route::get('/branch/panding/students', [StudentController::class, 'branchPandingStudent'])->middleware('branch.auth');
 Route::get('/branch/active/students', [StudentController::class, 'branchActiveStudent'])->middleware('branch.auth');
 Route::get('/branch/all/students', [StudentController::class, 'branchAllStudent'])->middleware('branch.auth');
@@ -74,6 +80,21 @@ Route::get('/public', function() {
 Route::get('/protected', function() {
     return "This is a protected page - only authenticated branches can see it";
 })->middleware('branch.auth');
+
+
+// all branches
+Route::get('/branch/signatures/create', [SignatureController::class, 'branchcreate'])->name('branchsignatures.create');
+Route::post('branch/signatures', [SignatureController::class, 'branchstore'])->name('branchsignatures.store');
+
+
+
+
+
+
+
+
+
+
 
 Route::get('/get-districts/{division_id}', function ($division_id) {
     $districts = District::where('division_id', $division_id)
