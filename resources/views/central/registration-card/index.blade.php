@@ -50,7 +50,7 @@
     .logo {
         position: absolute;
         left: 10px;
-        top: 10px;
+        top: 35px;
     }
 
     .logo img {
@@ -62,7 +62,7 @@
     .institute-name {
         color: #0f3d77;
         font-weight: 700;
-        font-size: 28px;
+        font-size: 31px;
         margin: 0px 0;
         line-height: 1.2;
     }
