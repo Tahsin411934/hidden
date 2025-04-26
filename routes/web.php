@@ -30,14 +30,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/student/profile/{student_id}', [StudentController::class, 'showCentralStudent'])->name('show.student');
     Route::resource('signatures', SignatureController::class);
-    Route::get('/admid-card/{id}', [PrintController::class, 'admitCard'])->name('admit-print.page');
+    // Route::get('/admid-card/{id}', [PrintController::class, 'admitCard'])->name('admit-print.page');
     Route::get('/students/admid-card/generate', [PrintController::class, 'students'])->name('admit-print.page');
     Route::post('/admit-card/{id}', [PrintController::class, 'admitCard'])
     ->name('admit-print.page');
+    Route::post('/registration-card/{id}', [PrintController::class, 'registrationCard'])
+    ->name('registration-print.page');
+    Route::get('/admit-card-pdf/{id}', [PrintController::class, 'admitCardpdf'])
+    ->name('admit-print-pdf.page');
+   
     Route::get('/central/panding/students', [StudentController::class, 'index']);
 });
 
-
+Route::post('/admit-card/bulk-print', [PrintController::class, 'bulkPrint'])->name('admit-print.bulk');
 // Course Resource Routes
 Route::resource('courses', CourseController::class);
 

@@ -64,7 +64,7 @@
                     <p class="text-gray-500">No students found.</p>
                     @else
                     <div class="overflow-x-auto">
-                        <table id="example" class="min-w-full divide-y divide-gray-200">
+                        <table  class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-6 py-3 text-left">Name</th>

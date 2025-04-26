@@ -6,6 +6,16 @@
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-bold">Active Student Management</h2>
                         <div class="flex space-x-4">
+                            <!-- Search Bar -->
+                            <div class="relative">
+                                <input type="text" id="search-input" placeholder="Search students..." 
+                                       class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute right-3 top-2.5 text-gray-400" 
+                                     viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            
                             <!-- Refresh Button -->
                             <button id="refresh-btn" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -27,9 +37,6 @@
                                 <option value="{{ $branch->id }}">{{ $branch->branch_name }}</option>
                                 @endforeach
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                
-                            </div>
                         </div>
 
                         <!-- Course Filter -->
@@ -41,9 +48,6 @@
                                 <option value="{{ $course->id }}">{{ $course->name }}</option>
                                 @endforeach
                             </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                
-                            </div>
                         </div>
                     </div>
 
@@ -51,15 +55,15 @@
                     <p class="text-gray-500">No students found.</p>
                     @else
                     <div class="overflow-x-auto">
-                        <table id="example" class="min-w-full divide-y divide-gray-200">
+                        <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-6 py-3 text-left">Name</th>
                                     <th class="px-6 py-3 text-left">Roll</th>
                                     <th class="px-6 py-3 text-left">Registration</th>
                                     <th class="px-6 py-3 text-left">Course</th>
-                                    <th class="px-6 py-3 text-left">Status</th>
                                     <th class="px-6 py-3 text-left">Branch</th>
+                                    <th class="px-6 py-3 text-left">Status</th>
                                     <th class="px-6 py-3 text-left">Action</th>
                                 </tr>
                             </thead>
@@ -67,24 +71,12 @@
                                 @foreach($students as $student)
                                 <tr id="student-row-{{ $student->id }}" 
                                     data-branch="{{ $student->branc_code }}"
-                                    data-course="{{ $student->course_id }}">
+                                    data-course="{{ $student->course_id }}"
+                                    data-search="{{ strtolower($student->name . ' ' . $student->roll_no . ' ' . $student->registration_no . ' ' . $student->course->name . ' ' . $student->branch->branch_name . ' ' . $student->status) }}">
                                     <td class="px-6 py-4">{{ $student->name }}</td>
-                                    <td class="px-6 py-4">
-                                        <div>{{ $student->roll_no  }}</div>
-                                        
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div>{{ $student->registration_no  }}</div>
-                                        
-                                    </td>
+                                    <td class="px-6 py-4">{{ $student->roll_no }}</td>
+                                    <td class="px-6 py-4">{{ $student->registration_no }}</td>
                                     <td class="px-6 py-4">{{ $student->course->name }}</td>
-                                    <td class="px-6 py-4">
-                                        <span class="px-2 py-1 text-xs rounded-full 
-                                            {{ $student->status === 'verified' ? 'bg-green-100 text-green-800' : 
-                                               ($student->status === 'completed' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800') }}">
-                                            {{ $student->status }}
-                                        </span>
-                                    </td>
                                     <td class="px-6 py-4">
                                         <span class="px-2 py-1 text-xs rounded-full 
                                             {{ $student->status === 'verified' ? 'bg-green-100 text-green-800' : 
@@ -93,8 +85,14 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4">
+                                        <span class="px-2 py-1 text-xs rounded-full 
+                                            {{ $student->status === 'verified' ? 'bg-green-100 text-green-800' : 
+                                               ($student->status === 'completed' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800') }}">
+                                            {{ $student->status }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <div class="flex gap-2">
-                                            <!-- Profile Button -->
                                             <a href="{{ route('show.student', $student->id) }}"
                                                 class="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600">
                                                 Profile
@@ -133,8 +131,14 @@
             }, 500);
         });
 
+        // Search functionality
+        document.getElementById('search-input').addEventListener('input', function() {
+            applyFilters();
+        });
+
         // Filter functionality
         function applyFilters() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
             const selectedBranch = document.getElementById('branch-filter').value;
             const selectedCourse = document.getElementById('course-filter').value;
             
@@ -144,11 +148,13 @@
             allRows.forEach(row => {
                 const rowBranch = row.getAttribute('data-branch');
                 const rowCourse = row.getAttribute('data-course');
+                const rowSearchText = row.getAttribute('data-search');
                 
                 const branchMatch = !selectedBranch || rowBranch === selectedBranch;
                 const courseMatch = !selectedCourse || rowCourse === selectedCourse;
+                const searchMatch = !searchTerm || rowSearchText.includes(searchTerm);
 
-                if (branchMatch && courseMatch) {
+                if (branchMatch && courseMatch && searchMatch) {
                     row.style.display = '';
                     hasVisibleRows = true;
                 } else {

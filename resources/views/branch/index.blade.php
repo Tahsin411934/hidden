@@ -55,15 +55,17 @@
                     <p class="text-gray-500">No students found.</p>
                     @else
                     <div class="overflow-x-auto">
-                        <table id="example" class="min-w-full divide-y divide-gray-200">
+                        <table  class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-6 py-3 text-left">Name</th>
-                                    <th class="px-6 py-3 text-left">Roll</th>
-                                    <th class="px-6 py-3 text-left">Registration</th>
-                                    <th class="px-6 py-3 text-left">Course</th>
+                                     <th class="px-6 py-3 text-left">Course</th>
+                                     <th class="px-6 py-3 text-left">Branch</th>
+                                    <th class="px-6 py-3 text-left">Contact</th>
+                                    <th class="px-6 py-3 text-left">session</th>
+                                   
                                     <th class="px-6 py-3 text-left">Status</th>
-                                    <th class="px-6 py-3 text-left">Branch</th>
+                                    
                                     <th class="px-6 py-3 text-left">Action</th>
                                 </tr>
                             </thead>
@@ -73,9 +75,17 @@
                                     data-branch="{{ $student->branc_code }}"
                                     data-course="{{ $student->course_id }}">
                                     <td class="px-6 py-4">{{ $student->name }}</td>
-                                    <td class="px-6 py-4">{{ $student->roll_no }}</td>
-                                    <td class="px-6 py-4">{{ $student->registration_no }}</td>
-                                    <td class="px-6 py-4">{{ $student->course->name }}</td>
+                                     <td class="px-6 py-4">{{ $student->course->name }}</td>
+                                     <td class="px-6 py-4">
+                                        <span class="px-2 py-1 text-xs rounded-full 
+                                            {{ $student->status === 'verified' ? 'bg-green-100 text-green-800' : 
+                                               ($student->status === 'completed' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800') }}">
+                                            {{ $student->branc_code }} - {{ $student->branch->branch_name }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">{{ $student->phone_number }}</td>
+                                    <td class="px-6 py-4">{{ $student->session }}</td>
+                                    
                                     <td class="px-6 py-4">
                                         <span class="px-2 py-1 text-xs rounded-full 
                                             {{ $student->status === 'verified' ? 'bg-green-100 text-green-800' : 
@@ -83,16 +93,10 @@
                                             {{ $student->status }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4">
-                                        <span class="px-2 py-1 text-xs rounded-full 
-                                            {{ $student->status === 'verified' ? 'bg-green-100 text-green-800' : 
-                                               ($student->status === 'completed' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800') }}">
-                                            {{ $student->branc_code }} - {{ $student->branch->branch_name }}
-                                        </span>
-                                    </td>
+                                    
                                     <td class="px-6 py-4">
                                         <div class="flex gap-2">
-                                            <a href="{{ route('students.show', $student->id) }}"
+                                            <a href="{{ route('show.student', $student->id) }}"
                                                 class="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600">
                                                 Profile
                                             </a>
