@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     ->name('admit-print-pdf.page');
    
     Route::get('/central/panding/students', [StudentController::class, 'index']);
+    Route::get('/central/branch/students', [StudentController::class, 'branchWise']);
 });
 
 Route::post('/admit-card/bulk-print', [PrintController::class, 'bulkPrint'])->name('admit-print.bulk');

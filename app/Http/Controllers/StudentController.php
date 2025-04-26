@@ -7,6 +7,10 @@ use App\Models\Branch;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Models\BranchCourse;
+use Devfaysal\BangladeshGeocode\Models\Division;
+use Devfaysal\BangladeshGeocode\Models\District;
+use Devfaysal\BangladeshGeocode\Models\Upazila;
+
 class StudentController extends Controller
 {
     // Display a listing of students
@@ -307,5 +311,23 @@ class StudentController extends Controller
     {
         $student->delete();
         return redirect()->route('students.index')->with('success', 'Student deleted successfully.');
+    }
+
+
+    public function branchWise()
+    {
+        $divisions = Division::orderBy('name')->get(['id', 'name']);
+        $branches = Branch::leftJoin('divisions', 'branches.division_id', '=', 'divisions.id')
+            ->leftJoin('districts', 'branches.district_id', '=', 'districts.id')
+            ->select(
+                'branches.*',
+                'divisions.name as division_name',
+                'divisions.id as division_id',
+                'districts.name as district_name',
+                'districts.id as district_id'
+            )
+            ->get();
+        
+        return view('central.students.branchWise', compact('divisions', 'branches'));
     }
 }
