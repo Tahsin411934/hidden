@@ -219,6 +219,61 @@ class StudentController extends Controller
             ], 500);
         }
     }
+    public function verifyAllBranchStudents($branch_code)
+    {   
+        // Validate branch code exists
+        $branch = Branch::find($branch_code);
+        if (!$branch) {
+            return response()->json(['message' => 'Branch not found'], 404);
+        }
+   
+        // Get count of inactive students first for quick check
+        $inactiveStudents = Student::where('status', 'panding')
+                              ->where('branc_code', $branch_code)
+                              ->get();
+    
+          if ($inactiveStudents->isEmpty()) {
+            return response()->json(['message' => 'No inactive students found'], 400);
+                            }
+    
+        \DB::beginTransaction();
+    
+        try {
+            // Get branch info from session
+            
+            $year = date('y'); // Current year in 2 digits
+    
+            // Get the highest roll number
+            $latestRoll = Student::whereNotNull('roll_no')
+                ->orderByRaw('CAST(roll_no AS UNSIGNED) DESC')
+                ->first();
+            $currentRoll = $latestRoll ? (int)$latestRoll->roll_no : 0;
+    
+            // Process all students
+            foreach ($inactiveStudents as $student) {
+                $currentRoll++;
+                
+                $student->update([
+                    'status' => 'active',
+                    'registration_no' => $student->branc_code . $year . str_pad($currentRoll, 4, '0', STR_PAD_LEFT),
+                    'roll_no' => $currentRoll
+                ]);
+            }
+    
+            \DB::commit();
+    
+            return response()->json([
+                'message' => 'Students activated successfully!',
+               
+            ]);
+    
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            return response()->json([
+                'message' => 'Failed to verify students: ' . $e->getMessage()
+            ], 500);
+        }
+    }
     // Display a specific student
     public function show(Student $student)
     {      
@@ -329,5 +384,16 @@ class StudentController extends Controller
             ->get();
         
         return view('central.students.branchWise', compact('divisions', 'branches'));
+    }
+
+    public function branch_wise_panding_students($branch_code){
+        $students = Student::whereIn('status', ['panding'])->where('branc_code',$branch_code)
+        ->with('branch', 'course')
+        ->get();
+        $branches = Branch::all();
+        $branche = Branch::find($branch_code);
+        $courses = Course::all();
+     
+        return view('central.students.branchWisePandingStudents', compact('students', 'branches', 'courses' , 'branche'));
     }
 }

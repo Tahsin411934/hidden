@@ -38,9 +38,9 @@ Route::middleware('auth')->group(function () {
     ->name('registration-print.page');
     Route::get('/admit-card-pdf/{id}', [PrintController::class, 'admitCardpdf'])
     ->name('admit-print-pdf.page');
-   
     Route::get('/central/panding/students', [StudentController::class, 'index']);
     Route::get('/central/branch/students', [StudentController::class, 'branchWise']);
+    Route::get('/branch/pending-students/{branch_id}', [StudentController::class, 'branch_wise_panding_students']);
 });
 
 Route::post('/admit-card/bulk-print', [PrintController::class, 'bulkPrint'])->name('admit-print.bulk');
@@ -55,6 +55,8 @@ Route::get('/branch/assign-course/{branch_code}', [BranchCourseController::class
 Route::post('/students/{student}/verify', [StudentController::class, 'verify'])->name('students.verify');
 Route::post('/students/verify-all', [StudentController::class, 'verifyAll'])
     ->name('students.verify-all');
+Route::post('/branchstudents/verify-all/{branch_id}', [StudentController::class, 'verifyAllBranchStudents'])
+    ->name('students.verifyAllBranchStudents');
 
 Route::resource('students', StudentController::class);
 

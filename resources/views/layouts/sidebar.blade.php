@@ -12,7 +12,7 @@
         </div>
 
         <!-- Navigation -->
-        <div class="flex flex-col flex-grow px-2 py-4 overflow-y-auto" id="nav-container">
+        <div class="flex flex-col flex-grow px-2 py-4 overflow-y-auto scrollbar-hide" id="nav-container">
             <nav class="flex-1 space-y-2">
                 <!-- Dashboard -->
                 <div class="px-2">
@@ -124,28 +124,28 @@
                     </div>
 
                     <div id="admit-dropdown" class="mb-1">
-    <button class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition focus:outline-none">
-        <div class="flex items-center">
-            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-            </svg>
-            <span class="ml-3 whitespace-nowrap transition-all duration-300 sidebar-text text-left">Admit & Register</span>
-        </div>
-        <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" id="admit-dropdown-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-        </svg>
-    </button>
-    <div id="admit-dropdown-list" class="mt-1 space-y-1 pl-8 hidden">
-        <a href="/students/admid-card/generate" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
-            <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
-            <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Admit/Reg Card</span>
-        </a>
-        <a href="/admit-card/manage" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
-            <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
-            <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Manage Admit Cards</span>
-        </a>
-    </div>
-</div>
+                        <button class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition focus:outline-none">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                </svg>
+                                <span class="ml-3 whitespace-nowrap transition-all duration-300 sidebar-text text-left">Admit & Register</span>
+                            </div>
+                            <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" id="admit-dropdown-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="admit-dropdown-list" class="mt-1 space-y-1 pl-8 hidden">
+                            <a href="/students/admid-card/generate" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Admit/Reg Card</span>
+                            </a>
+                            <a href="/admit-card/manage" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Manage Admit Cards</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Administration Section -->
@@ -194,9 +194,9 @@
                         <span class="ml-3 whitespace-nowrap transition-all duration-300 sidebar-text">Reports</span>
                     </a>
                     <a href="/signatures/create" class="flex items-center px-3 py-2.5 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition mb-1">
-                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732zM12 15l-3-3m0 0l3-3m-3 3h6"></path>
-</svg>
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732zM12 15l-3-3m0 0l3-3m-3 3h6"></path>
+                        </svg>
                         <span class="ml-3 whitespace-nowrap transition-all duration-300 sidebar-text">Signature</span>
                     </a>
                 </div>
@@ -222,6 +222,17 @@
         </div>
     </div>
 </div>
+
+<style>
+    /* Completely hide scrollbar but keep functionality */
+    .scrollbar-hide {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;  /* Chrome, Safari and Opera */
+    }
+</style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
