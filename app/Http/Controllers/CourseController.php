@@ -9,6 +9,7 @@ use Devfaysal\BangladeshGeocode\Models\Division;
 use Devfaysal\BangladeshGeocode\Models\District;
 use Devfaysal\BangladeshGeocode\Models\Upazila;
 use App\Models\Branch;
+use App\Models\Category;
 
 class CourseController extends Controller
 {
@@ -18,7 +19,9 @@ class CourseController extends Controller
     public function index()
     {
         $courses = Course::latest()->get();
-        return view('courses.index', compact('courses'));
+        $categories = Category::all();
+       
+        return view('central.courses.index', compact('courses', 'categories'));
     }
 
     public function showtable()
@@ -43,7 +46,8 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('central.courses.create');
+        $categories = Category::all();
+        return view('central.courses.create', compact('categories'));
     }
 
     /**
@@ -51,15 +55,24 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate the request data
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'code' => 'nullable|string|max:50|unique:courses'
+            'code' => 'nullable|string|max:50',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB max
         ]);
 
+        // Handle file upload
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('course_images', 'public');
+            $validated['image'] = $path;
+        }
+
+        // Create the course
         Course::create($validated);
 
-        return redirect()->back()
-                        ->with('success', 'Course created successfully.');
+        return response()->json(['success' => true]);
     }
 
     /**
@@ -85,11 +98,28 @@ class CourseController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'code' => 'nullable|string|max:50|unique:courses,code,'.$course->id
+            'code' => 'nullable|string|max:50|unique:courses,code,'.$course->id,
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // 2MB max
         ]);
-
+    
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Delete old image if it exists
+            if ($course->image) {
+                Storage::delete('public/'.$course->image);
+            }
+            
+            // Store new image
+            $imagePath = $request->file('image')->store('course_images', 'public');
+            $validated['image'] = $imagePath;
+        } else {
+            // Keep the existing image if no new image was uploaded
+            $validated['image'] = $course->image;
+        }
+    
         $course->update($validated);
-
+    
         return redirect()->route('courses.index')
                         ->with('success', 'Course updated successfully.');
     }

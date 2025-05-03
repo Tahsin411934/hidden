@@ -396,4 +396,25 @@ class StudentController extends Controller
      
         return view('central.students.branchWisePandingStudents', compact('students', 'branches', 'courses' , 'branche'));
     }
+    public function branch_wise_active_students($branch_code){
+        $students = Student::whereIn('status', ['active'])->where('branc_code',$branch_code)
+        ->with('branch', 'course')
+        ->get();
+        $branches = Branch::all();
+        $branche = Branch::find($branch_code);
+        $courses = Course::all();
+     
+        return view('central.students.branchWiseactiveStudents', compact('students', 'branches', 'courses' , 'branche'));
+    }
+    public function branch_wise_all_students($branch_code){
+        $students = Student::whereIn('status', ['active', 'completed'])->where('branc_code',$branch_code)
+        ->with('branch', 'course')
+        ->get();
+       
+        $branches = Branch::all();
+        $branche = Branch::find($branch_code);
+        $courses = Course::all();
+     
+        return view('central.students.branchWiseAllStudents', compact('students', 'branches', 'courses' , 'branche'));
+    }
 }

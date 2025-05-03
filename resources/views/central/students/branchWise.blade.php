@@ -107,7 +107,7 @@
                                        class="bg-green-500 text-white text-sm px-3 py-1 rounded hover:bg-green-600 transition-colors">
                                         Active
                                     </a>
-                                    <a href="/branch/all-students/{{ $branch->id }}" 
+                                    <a href="/branch/students/{{ $branch->id }}" 
                                        class="bg-blue-500 text-white text-sm px-3 py-1 rounded hover:bg-blue-600 transition-colors">
                                         All Students
                                     </a>

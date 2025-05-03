@@ -14,6 +14,8 @@ use App\Http\Controllers\PrintController;
 use Illuminate\Http\Request;
 
 
+use App\Http\Controllers\CategoryController;
+
 
 Route::resource('signatures', SignatureController::class);
 Route::get('/', function () {
@@ -41,6 +43,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/central/panding/students', [StudentController::class, 'index']);
     Route::get('/central/branch/students', [StudentController::class, 'branchWise']);
     Route::get('/branch/pending-students/{branch_id}', [StudentController::class, 'branch_wise_panding_students']);
+    Route::get('/branch/active-students/{branch_id}', [StudentController::class, 'branch_wise_active_students']);
+    Route::get('/branch/students/{branch_id}', [StudentController::class, 'branch_wise_all_students']);
+    Route::resource('categories', CategoryController::class);
+    Route::get('/all/categories', [CategoryController::class, 'showList']);
 });
 
 Route::post('/admit-card/bulk-print', [PrintController::class, 'bulkPrint'])->name('admit-print.bulk');
