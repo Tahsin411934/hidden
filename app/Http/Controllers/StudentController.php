@@ -417,4 +417,14 @@ class StudentController extends Controller
      
         return view('central.students.branchWiseAllStudents', compact('students', 'branches', 'courses' , 'branche'));
     }
+
+    // marks
+    public function MarksStudents(){
+        $students = Student::whereIn('status', ['active'])
+                   ->with('branch', 'course')
+                   ->get();
+        $branches = Branch::all();
+        $courses = Course::all();
+        return view('central.marks.students',compact('students', 'branches', 'courses'));
+    }
 }

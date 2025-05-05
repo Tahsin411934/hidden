@@ -10,6 +10,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\BranchCourseController;
 use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\PrintController;
+use App\Http\Controllers\MarkController;
 
 use Illuminate\Http\Request;
 
@@ -42,11 +43,17 @@ Route::middleware('auth')->group(function () {
     ->name('admit-print-pdf.page');
     Route::get('/central/panding/students', [StudentController::class, 'index']);
     Route::get('/central/branch/students', [StudentController::class, 'branchWise']);
+    Route::get('/central/active/students', [StudentController::class, 'verifyStudents']);
+    Route::get('/central/students', [StudentController::class, 'Students']);
     Route::get('/branch/pending-students/{branch_id}', [StudentController::class, 'branch_wise_panding_students']);
     Route::get('/branch/active-students/{branch_id}', [StudentController::class, 'branch_wise_active_students']);
     Route::get('/branch/students/{branch_id}', [StudentController::class, 'branch_wise_all_students']);
     Route::resource('categories', CategoryController::class);
     Route::get('/all/categories', [CategoryController::class, 'showList']);
+
+    // MARKS
+    Route::get('/students/marks/entry', [StudentController::class, 'MarksStudents']);
+    Route::resource('marks', MarkController::class)->middleware('auth');
 });
 
 Route::post('/admit-card/bulk-print', [PrintController::class, 'bulkPrint'])->name('admit-print.bulk');
@@ -72,8 +79,7 @@ Route::get('/branch/all/students', [StudentController::class, 'branchAllStudent'
 Route::get('/branch/profile/{student_id}', [StudentController::class, 'branchshow'])->name('Branchstudents.show')->middleware('branch.auth');
 Route::get('/branch/student/profile/{student_id}', [StudentController::class, 'branchStudentShow'])->name('Branchstudent.show')->middleware('branch.auth');
 
-Route::get('/central/active/students', [StudentController::class, 'verifyStudents']);
-Route::get('/central/students', [StudentController::class, 'Students']);
+
 
 
 

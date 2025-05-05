@@ -127,6 +127,7 @@
                         </div>
                     </div>
 
+                    <!-- Admit & Register Dropdown -->
                     <div id="admit-dropdown" class="mb-1">
                         <button class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition focus:outline-none">
                             <div class="flex items-center">
@@ -147,6 +148,93 @@
                             <a href="/admit-card/manage" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
                                 <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
                                 <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Manage Admit Cards</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Marks Dropdown -->
+                    <div id="marks-dropdown" class="mb-1">
+                        <button class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition focus:outline-none">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span class="ml-3 whitespace-nowrap transition-all duration-300 sidebar-text text-left">Marks</span>
+                            </div>
+                            <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" id="marks-dropdown-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="marks-dropdown-list" class="mt-1 space-y-1 pl-8 hidden">
+                            <a href="/students/marks/entry" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Marks Entry</span>
+                            </a>
+                            <a href="/marks/manage" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Manage Marks</span>
+                            </a>
+                            <a href="/marks/upload" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Bulk Upload</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Results Dropdown -->
+                    <div id="results-dropdown" class="mb-1">
+                        <button class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition focus:outline-none">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                                <span class="ml-3 whitespace-nowrap transition-all duration-300 sidebar-text text-left">Results</span>
+                            </div>
+                            <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" id="results-dropdown-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="results-dropdown-list" class="mt-1 space-y-1 pl-8 hidden">
+                            <a href="/results/generate" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Generate Results</span>
+                            </a>
+                            <a href="/results/publish" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Publish Results</span>
+                            </a>
+                            <a href="/results/view" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">View Results</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Verify SMS Dropdown -->
+                    <div id="sms-dropdown" class="mb-1">
+                        <button class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition focus:outline-none">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                                </svg>
+                                <span class="ml-3 whitespace-nowrap transition-all duration-300 sidebar-text text-left">Verify SMS</span>
+                            </div>
+                            <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" id="sms-dropdown-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="sms-dropdown-list" class="mt-1 space-y-1 pl-8 hidden">
+                            <a href="/sms/verify" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Verify SMS</span>
+                            </a>
+                            <a href="/sms/history" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">SMS History</span>
+                            </a>
+                            <a href="/sms/settings" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">SMS Settings</span>
                             </a>
                         </div>
                     </div>
@@ -237,6 +325,10 @@
         display: none;  /* Chrome, Safari and Opera */
     }
 </style>
+
+ 
+   
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
