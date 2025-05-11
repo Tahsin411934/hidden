@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mark;
 use App\Models\Student;
 use App\Models\Course;
+
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -67,10 +68,12 @@ class MarkController extends Controller
                     ->withInput()
                     ->with('error', 'Marks already exist for this student in the selected course.');
             }
-    
+
+   
             // Create new marks entry
             Mark::create($validated);
-    
+            Student::where('id', $validated['student_id'])->update(['status' => 'completed']);
+
             return redirect()
                 ->back()
                 ->with('success', 'Marks added successfully!');
@@ -98,36 +101,42 @@ class MarkController extends Controller
             'existing_marks' => $student->marks->keyBy('course_id') // For easy lookup
         ]);
     }
-
-    /**
-     * Show the form for editing the specified mark.
-     */
-    public function edit(Mark $mark)
+    public function manageMarks($student_id)
     {
-        $students = Student::orderBy('name')->get();
+        $student = Student::with(['course', 'marks.course'])->findOrFail($student_id);
+        $marks = Mark::where('student_id', $student_id)->first();
         $courses = Course::orderBy('name')->get();
-
-        return view('marks.edit', compact('mark', 'students', 'courses'));
+        
+        return view('central.marks.showmark', [
+            'student' => $student,
+            'courses' => $courses,  
+            'mark' => $marks,  
+            'existing_marks' => $student->marks->keyBy('course_id') // For easy lookup
+        ]);
     }
+
+  
 
     /**
      * Update the specified mark in storage.
      */
     public function update(Request $request, Mark $mark)
-    {
+    {  
         $validated = $request->validate([
             'student_id' => 'required|exists:students,id',
             'course_id' => 'required|exists:courses,id',
-            'academic_assessment' => 'required|numeric|min:0|max:30',
-            'written' => 'required|numeric|min:0|max:40',
-            'practical' => 'required|numeric|min:0|max:20',
+            'academic_assessment' => 'required|numeric|min:0|max:300',
+            'written' => 'required|numeric|min:0|max:50',
+            'practical' => 'required|numeric|min:0|max:40',
             'viva' => 'required|numeric|min:0|max:10',
+            'gpa' => 'required|numeric|min:0|max:5',
+            'grade' => 'required|string',
         ], [
             'student_id.required' => 'Please select a student',
             'course_id.required' => 'Please select a course',
-            'academic_assessment.max' => 'Academic assessment cannot exceed 30 marks',
-            'written.max' => 'Written exam cannot exceed 40 marks',
-            'practical.max' => 'Practical cannot exceed 20 marks',
+            'academic_assessment.max' => 'Academic assessment cannot exceed 300 marks',
+            'written.max' => 'Written exam cannot exceed 50 marks',
+            'practical.max' => 'Practical cannot exceed 40 marks',
             'viva.max' => 'Viva cannot exceed 10 marks',
         ]);
 
@@ -146,7 +155,7 @@ class MarkController extends Controller
         $mark->update($validated);
 
         return redirect()
-            ->route('marks.index')
+            ->back()
             ->with('success', 'Marks updated successfully!');
     }
 

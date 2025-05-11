@@ -53,6 +53,8 @@ Route::middleware('auth')->group(function () {
 
     // MARKS
     Route::get('/students/marks/entry', [StudentController::class, 'MarksStudents']);
+    Route::get('/marks/manage', [StudentController::class, 'manageMarksStudents']);
+    Route::get('/marks/manage/{id}', [MarkController::class, 'manageMarks'])->name('mark.manage');
     Route::resource('marks', MarkController::class)->middleware('auth');
 });
 

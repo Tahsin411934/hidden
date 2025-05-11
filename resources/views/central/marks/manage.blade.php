@@ -91,9 +91,9 @@
                                                 class="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600">
                                                 Profile
                                             </a>
-                                            <a href="{{ route('marks.show', $student->id) }}"
+                                            <a href="{{ route('mark.manage', $student->id) }}"
                                                 class="px-3 py-1 text-sm bg-[#006172] text-white rounded hover:bg-blue-600">
-                                                Entry_Mark
+                                                Update Marks
                                             </a>
                                         </div>
                                     </td>

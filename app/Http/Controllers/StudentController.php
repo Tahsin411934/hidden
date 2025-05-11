@@ -427,4 +427,12 @@ class StudentController extends Controller
         $courses = Course::all();
         return view('central.marks.students',compact('students', 'branches', 'courses'));
     }
+    public function manageMarksStudents(){
+        $students = Student::whereIn('status', ['completed'])
+                   ->with('branch', 'course')
+                   ->get();
+        $branches = Branch::all();
+        $courses = Course::all();
+        return view('central.marks.manage',compact('students', 'branches', 'courses'));
+    }
 }
