@@ -26,6 +26,7 @@
             <div class="">
                 {{ $slot }}
             </div>
+          @include('frontend.footer')
         </div>
     </body>
 </html>

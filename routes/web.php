@@ -11,6 +11,7 @@ use App\Http\Controllers\BranchCourseController;
 use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\MarkController;
+use App\Http\Controllers\HomepageController;
 
 use Illuminate\Http\Request;
 
@@ -19,10 +20,10 @@ use App\Http\Controllers\CategoryController;
 
 
 Route::resource('signatures', SignatureController::class);
-Route::get('/', function () {
-    return view('welcome');
-});
-
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+  Route::get('/', [HomepageController::class, 'Home']);
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
