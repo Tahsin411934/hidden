@@ -42,17 +42,26 @@
                     <a href="/" class="text-gray-700 hover:text-[#F37021] px-3 py-2 text-base font-medium transition-colors duration-300">Home</a>
                     
                     <!-- Branches Dropdown -->
-                    <div class="relative group" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-                        <button class="text-gray-700 hover:text-[#F37021] px-3 py-2 text-base font-medium flex items-center transition-colors duration-300">
-                            Branches
-                            <svg class="ml-1 h-4 w-4 transition-transform duration-200 transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
+                    <div class="relative" x-data="{ loginOpen: false, loginTimeout: null }">
+                        <button 
+                            @mouseenter="clearTimeout(loginTimeout); loginOpen = true" 
+                            @mouseleave="loginTimeout = setTimeout(() => { loginOpen = false }, 1000)"
+                            class="text-gray-700  hover:bg-[#F37021] hover:text-white rounded px-3 py-2 text-base font-medium transition-colors duration-300">
+                           Branches
                         </button>
-                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-xl py-1 z-10 hidden group-hover:block origin-top-left transform transition-all duration-300 scale-95 group-hover:scale-100">
-                            <a href="#" class="block px-4 py-2 text-base text-gray-700 hover:bg-[#F37021] hover:text-white transition-colors duration-200">Branch 1</a>
-                            <a href="#" class="block px-4 py-2 text-base text-gray-700 hover:bg-[#F37021] hover:text-white transition-colors duration-200">Branch 2</a>
-                            <a href="#" class="block px-4 py-2 text-base text-gray-700 hover:bg-[#F37021] hover:text-white transition-colors duration-200">Branch 3</a>
+                        <div 
+                            @mouseenter="clearTimeout(loginTimeout); loginOpen = true" 
+                            @mouseleave="loginTimeout = setTimeout(() => { loginOpen = false }, 2000)"
+                            class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-xl py-1 z-10 login-dropdown"
+                            x-show="loginOpen"
+                            x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="opacity-0 scale-95"
+                            x-transition:enter-end="opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="opacity-100 scale-100"
+                            x-transition:leave-end="opacity-0 scale-95">
+                            <a href="/branch/search" class="block px-4 py-2 text-base text-gray-700 hover:bg-[#F37021] hover:text-white transition-colors duration-200">Search a Branch</a>
+                           
                         </div>
                     </div>
                     

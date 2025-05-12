@@ -195,15 +195,8 @@
                             </svg>
                         </button>
                         <div id="results-dropdown-list" class="mt-1 space-y-1 pl-8 hidden">
-                            <a href="/results/generate" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
-                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
-                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Generate Results</span>
-                            </a>
-                            <a href="/results/publish" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
-                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
-                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Publish Results</span>
-                            </a>
-                            <a href="/results/view" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                            
+                            <a href="/result" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
                                 <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
                                 <span class="whitespace-nowrap transition-all duration-300 sidebar-text">View Results</span>
                             </a>

@@ -41,6 +41,22 @@ class CourseController extends Controller
         
         return view('central.courses.assign-courses', compact('divisions', 'branches'));
     }
+    public function searchBranch()
+    {
+        $divisions = Division::orderBy('name')->get(['id', 'name']);
+        $branches = Branch::leftJoin('divisions', 'branches.division_id', '=', 'divisions.id')
+            ->leftJoin('districts', 'branches.district_id', '=', 'districts.id')
+            ->select(
+                'branches.*',
+                'divisions.name as division_name',
+                'divisions.id as division_id',
+                'districts.name as district_name',
+                'districts.id as district_id'
+            )
+            ->get();
+        
+        return view('frontend.pages.branches.search', compact('divisions', 'branches'));
+    }
 
     /**
      * Show the form for creating a new resource.

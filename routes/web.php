@@ -12,6 +12,7 @@ use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\ResultController;
 
 use Illuminate\Http\Request;
 
@@ -57,6 +58,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/marks/manage', [StudentController::class, 'manageMarksStudents']);
     Route::get('/marks/manage/{id}', [MarkController::class, 'manageMarks'])->name('mark.manage');
     Route::resource('marks', MarkController::class)->middleware('auth');
+
+    // result 
+   // Routes (routes/web.php)
+Route::get('/result', [ResultController::class, 'result'])->name('result');
+Route::post('/result', [ResultController::class, 'result']);
 });
 
 Route::post('/admit-card/bulk-print', [PrintController::class, 'bulkPrint'])->name('admit-print.bulk');
@@ -66,6 +72,7 @@ Route::resource('courses', CourseController::class);
 // BranchCourse Resource Routes
 Route::resource('branch-courses', BranchCourseController::class);
 Route::get('/branch/assign-course', [CourseController::class, 'showtable']);
+Route::get('/branch/search', [CourseController::class, 'searchBranch']);
 Route::get('/branch/assign-course/{branch_code}', [BranchCourseController::class, 'showCourseList']);
 
 Route::post('/students/{student}/verify', [StudentController::class, 'verify'])->name('students.verify');

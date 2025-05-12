@@ -1,4 +1,4 @@
-<section class="py-16 max-w-6xl mx-auto bg-gray-50">
+<section class="py-16 mt-[600px] lg:mt-[0px] max-w-6xl mx-auto bg-gray-50">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="text-center mb-12">
