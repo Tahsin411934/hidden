@@ -25,4 +25,23 @@ class ResultController extends Controller
             'registration_no' => $registrationNo
         ]);
     }
+  public function Studentresult(Request $request)
+    {
+        $rollNo = $request->input('roll_no');
+        $registrationNo = $request->input('registration_no');
+        $student = null;
+
+        if ($rollNo && $registrationNo) {
+            $student = Student::with('marks', 'branch', 'course')
+                ->where('roll_no', $rollNo)
+                ->where('registration_no', $registrationNo)
+                ->first();
+        }
+
+        return view('frontend.pages.result', [
+            'student' => $student,
+            'roll_no' => $rollNo,
+            'registration_no' => $registrationNo
+        ]);
+    }
 }

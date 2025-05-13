@@ -1,4 +1,4 @@
-<footer class="bg-[#006172] text-white">
+<footer class="bg-[#002B3E] text-white">
     <div class="container mx-auto px-6 py-12">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
             <!-- Brand Column -->

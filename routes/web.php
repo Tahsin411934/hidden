@@ -13,7 +13,7 @@ use App\Http\Controllers\PrintController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ResultController;
-
+use App\Http\Controllers\NoticeController;
 use Illuminate\Http\Request;
 
 
@@ -21,9 +21,7 @@ use App\Http\Controllers\CategoryController;
 
 
 Route::resource('signatures', SignatureController::class);
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+
   Route::get('/', [HomepageController::class, 'Home']);
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -64,6 +62,26 @@ Route::middleware('auth')->group(function () {
 Route::get('/result', [ResultController::class, 'result'])->name('result');
 Route::post('/result', [ResultController::class, 'result']);
 });
+
+
+// Frontend
+ // result 
+Route::get('/students/result', [ResultController::class, 'Studentresult'])->name('student-result');
+Route::post('/students/result', [ResultController::class, 'Studentresult']);
+//galary
+Route::get('/gallery', function () {
+    return view('frontend.pages.gallary');
+ });
+Route::get('/about-us', function () {
+    return view('frontend.pages.about-us');
+ });
+Route::get('/contact-us', function () {
+    return view('frontend.pages.contact-us');
+ });
+
+
+Route::resource('notices', NoticeController::class);
+
 
 Route::post('/admit-card/bulk-print', [PrintController::class, 'bulkPrint'])->name('admit-print.bulk');
 // Course Resource Routes

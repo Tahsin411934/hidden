@@ -210,25 +210,22 @@
                                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
                                 </svg>
-                                <span class="ml-3 whitespace-nowrap transition-all duration-300 sidebar-text text-left">Verify SMS</span>
+                                <span class="ml-3 whitespace-nowrap transition-all duration-300 sidebar-text text-left">Notice</span>
                             </div>
                             <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" id="sms-dropdown-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </button>
                         <div id="sms-dropdown-list" class="mt-1 space-y-1 pl-8 hidden">
-                            <a href="/sms/verify" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                            <a href="/notices/create" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
                                 <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
-                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Verify SMS</span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Create Notice</span>
                             </a>
-                            <a href="/sms/history" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                            <a href="/notices" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
                                 <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
-                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">SMS History</span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Manage Notice</span>
                             </a>
-                            <a href="/sms/settings" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
-                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
-                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">SMS Settings</span>
-                            </a>
+                            
                         </div>
                     </div>
                 </div>

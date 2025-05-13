@@ -1,6 +1,6 @@
 <x-guest-layout>
-    <section class="bg-white text-gray-800 w-[85%] mt-1 mx-auto font-sans">
-    <div class="container flex flex-col-reverse lg:flex-row items-center lg:py-18 justify-between gap-8 px-6 py-5 mx-auto">
+    <section class="bg-gray-100 text-gray-800  font-sans">
+    <div class="container w-[85%] mt-1  flex flex-col-reverse lg:flex-row items-center lg:py-18 justify-between gap-8 px-6 py-5 mx-auto">
         <!-- Text Content -->
         <div class="flex flex-col justify-center text-center lg:text-left lg:max-w-xl">
             <h1 class="text-2xl md:text-[35px] font-bold text-[#045E7B] leading-tight tracking-tight">

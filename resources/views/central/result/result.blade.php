@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto">
+        <div class=" mx-auto">
             <!-- Header -->
             <div class="text-center mb-8">
                 <h1 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
@@ -37,7 +37,7 @@
                         </div>
                         <div class="flex justify-end">
                             <button type="submit" 
-                                    class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                    class="inline-flex justify-center rounded-md border border-transparent bg-[#006172] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                 Search Result
                             </button>
                         </div>
@@ -50,7 +50,7 @@
                 <div class="bg-white shadow rounded-lg overflow-hidden">
                     @if($student)
                         <!-- Student Info Header -->
-                        <div class="bg-emerald-600 px-6 py-4">
+                        <div class="bg-gradient-to-r from-[#003E59] to-[#28708f] px-6 py-4">
                             <h3 class="text-lg font-medium text-white">
                                 Student Result Details
                             </h3>
@@ -96,7 +96,7 @@
                                         </div>
                                         <div class="flex items-start">
                                             <span class="w-32 flex-shrink-0 text-sm font-medium text-gray-500">Branch</span>
-                                            <span class="text-sm text-gray-900">{{ $student->branch->name ?? 'N/A' }}</span>
+                                            <span class="text-sm text-gray-900">{{ $student->branch->branch_name ?? 'N/A' }}</span>
                                         </div>
                                         <div class="flex items-start">
                                             <span class="w-32 flex-shrink-0 text-sm font-medium text-gray-500">Session</span>
