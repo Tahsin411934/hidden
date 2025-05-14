@@ -145,7 +145,7 @@
                 
                 <a href="/students/result" class="nav-link px-3 py-2 rounded-md text-base font-medium" :class="{ 'active-nav-link': window.location.pathname.startsWith('/students/result') }">Result</a>
                 <a href="/gallery" class="nav-link px-3 py-2 rounded-md text-base font-medium" :class="{ 'active-nav-link': window.location.pathname.startsWith('/gallery') }">Gallery</a>
-                <a href="/notice" class="nav-link px-3 py-2 rounded-md text-base font-medium" :class="{ 'active-nav-link': window.location.pathname.startsWith('/notice') }">Notice</a>
+                <a href="/recent/notice" class="nav-link px-3 py-2 rounded-md text-base font-medium" :class="{ 'active-nav-link': window.location.pathname.startsWith('/notice') }">Notice</a>
                 <a href="/about-us" class="nav-link px-3 py-2 rounded-md text-base font-medium" :class="{ 'active-nav-link': window.location.pathname.startsWith('/about-us') }">About Us</a>
                 
                 <!-- Login Dropdown -->

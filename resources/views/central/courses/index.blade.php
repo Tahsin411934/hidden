@@ -44,11 +44,11 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $course->category->name ?? 'Uncategorized' }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <button onclick="openEditModal({{ $course->id }}, '{{ $course->name }}', '{{ $course->code }}', {{ $course->category_id ?? 'null' }}, '{{ $course->image }}')" 
-                                    class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
+                                    class="text-[#f8fafa] btn bg-[#004d5a] p-3 rounded hover:text-[#e6f14d] mr-3">Edit</button>
                             <form action="{{ route('courses.destroy', $course->id) }}" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="button" onclick="confirmDelete(this.form)" class="text-red-600 hover:text-red-900">Delete</button>
+                                <button type="button" onclick="confirmDelete(this.form)" class="text-[#f8fafa] btn bg-red-600 p-3 rounded hover:text-[#e6f14d] mr-3">Delete</button>
                             </form>
                         </td>
                     </tr>

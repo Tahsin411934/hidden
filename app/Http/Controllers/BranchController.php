@@ -109,7 +109,7 @@ class BranchController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Branch $branch)
-    {
+    { dd($request->all());
         $validated = $request->validate([
             'branch_name' => 'required|string|max:255',
             'email' => 'required|email|unique:branches,email,'.$branch->id,

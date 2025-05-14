@@ -51,6 +51,13 @@
                         placeholder="Enter phone number" required>
                     <span id="phone_number_error" class="text-red-500 text-xs mt-1"></span>
                 </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Date Of Birth*</label>
+                    <input type="date" name="date_of_birth" id="date_of_birth"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Enter date_of_birth" required>
+                    <span id="date_of_birth_error" class="text-red-500 text-xs mt-1"></span>
+                </div>
             </div>
         </div>
 
@@ -71,6 +78,13 @@
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Enter village name" required>
                     <span id="vill_error" class="text-red-500 text-xs mt-1"></span>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">district*</label>
+                    <input type="text" name="district" id="district"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Enter district name" required>
+                    <span id="district_error" class="text-red-500 text-xs mt-1"></span>
                 </div>
                 <div class="md:col-span-2">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Full Address*</label>

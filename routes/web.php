@@ -14,6 +14,7 @@ use App\Http\Controllers\MarkController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Http\Request;
 
 
@@ -29,6 +30,8 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/user/make', [RegisteredUserController::class, 'create']);
+    Route::post('register', [RegisteredUserController::class, 'store']);
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/student/profile/{student_id}', [StudentController::class, 'showCentralStudent'])->name('show.student');
@@ -81,7 +84,7 @@ Route::get('/contact-us', function () {
 
 
 Route::resource('notices', NoticeController::class);
-
+Route::get('/recent/notice', [NoticeController::class, 'frontendindex']);
 
 Route::post('/admit-card/bulk-print', [PrintController::class, 'bulkPrint'])->name('admit-print.bulk');
 // Course Resource Routes

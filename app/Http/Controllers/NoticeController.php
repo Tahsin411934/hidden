@@ -16,6 +16,11 @@ class NoticeController extends Controller
     $notices = Notice::latest()->paginate(10);
     return view('central.notices.index', compact('notices'));
 }
+   public function frontendindex()
+{
+    $notices = Notice::latest()->paginate(10);
+    return view('frontend.notice-show', compact('notices'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -55,7 +60,7 @@ class NoticeController extends Controller
      */
     public function show(Notice $notice)
     {
-        return view('notices.show', compact('notice'));
+        return view('frontend.shownotice', compact('notice'));
     }
 
     /**

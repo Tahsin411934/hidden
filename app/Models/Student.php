@@ -12,10 +12,12 @@ class Student extends Model
     protected $fillable = [
         'name',
         'father_name',
+        'date_of_birth',
         'mother_name',
         'phone_number',
         'tana',
         'vill',
+        'district',
         'course_id',
         'address',
         'session',

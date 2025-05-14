@@ -102,30 +102,7 @@
                         </div>
                     </div>
                     
-                    <!-- Branches Dropdown -->
-                    <div id="branch-dropdown" class="mb-1">
-                        <button class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition focus:outline-none">
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                                <span class="ml-3 whitespace-nowrap transition-all duration-300 sidebar-text text-left">Branches</span>
-                            </div>
-                            <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" id="branch-dropdown-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                        <div id="branch-dropdown-list" class="mt-1 space-y-1 pl-8 hidden">
-                            <a href="/branches/create" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
-                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
-                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Create New Branch</span>
-                            </a>
-                            <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
-                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
-                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">All Branches</span>
-                            </a>
-                        </div>
-                    </div>
+                    
 
                     <!-- Admit & Register Dropdown -->
                     <div id="admit-dropdown" class="mb-1">
@@ -230,10 +207,34 @@
                     </div>
                 </div>
 
+                @if(Auth::user()->role == "admin")
                 <!-- Administration Section -->
                 <div class="px-2 pt-4">
                     <h3 class="text-xs font-semibold text-blue-300 uppercase tracking-wider mb-2 ml-3 whitespace-nowrap sidebar-text" id="admin-heading">Administration</h3>
-                    
+                    <!-- Branches Dropdown -->
+                    <div id="branch-dropdown" class="mb-1">
+                        <button class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition focus:outline-none">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <span class="ml-3 whitespace-nowrap transition-all duration-300 sidebar-text text-left">Branches</span>
+                            </div>
+                            <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200" id="branch-dropdown-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="branch-dropdown-list" class="mt-1 space-y-1 pl-8 hidden">
+                            <a href="/branches/create" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Create New Branch</span>
+                            </a>
+                            <a href="/all-branch" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">All Branches</span>
+                            </a>
+                        </div>
+                    </div>
                     <!-- System Dropdown -->
                     <div id="admin-dropdown" class="mb-1">
                         <button class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition focus:outline-none">
@@ -249,9 +250,9 @@
                             </svg>
                         </button>
                         <div id="admin-dropdown-list" class="mt-1 space-y-1 pl-8 hidden">
-                            <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
+                            <a href="/user/make" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
                                 <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
-                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Users</span>
+                                <span class="whitespace-nowrap transition-all duration-300 sidebar-text">Add Users</span>
                             </a>
                             <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-blue-200 rounded-lg hover:bg-blue-700 hover:text-white group transition">
                                 <span class="w-1.5 h-1.5 rounded-full bg-blue-400 mr-3"></span>
@@ -282,6 +283,7 @@
                         <span class="ml-3 whitespace-nowrap transition-all duration-300 sidebar-text">Signature</span>
                     </a>
                 </div>
+                @endif
             </nav>
         </div>
 
@@ -315,10 +317,6 @@
         display: none;  /* Chrome, Safari and Opera */
     }
 </style>
-
- 
-   
-
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

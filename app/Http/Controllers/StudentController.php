@@ -89,15 +89,17 @@ class StudentController extends Controller
 
     // Store a newly created student
     public function store(Request $request)
-    { 
+    {  
         $validatedData = $request->validate([
             'name' => 'required|string|max:100',
             'father_name' => 'nullable|string|max:100',
+             'date_of_birth' => 'nullable|date',
             'branc_code' => 'nullable|max:100',
             'mother_name' => 'nullable|string|max:100',
             'phone_number' => 'nullable|string|max:20',
             'tana' => 'nullable|string|max:100',
             'vill' => 'nullable|string|max:100',
+            'district' => 'nullable|string|max:100',
             'course_id' => 'nullable|max:100',
             'address' => 'nullable|string|max:255',
             'session' => 'nullable|string|max:50',
@@ -143,7 +145,9 @@ class StudentController extends Controller
                 ->orderByRaw('CAST(roll_no AS UNSIGNED) DESC')
                 ->first();
             
-            $newRollNo = $latestRoll ? ((int)$latestRoll->roll_no) + 1 : 1;
+           $startingRoll = 100000;
+            $newRollNo = $latestRoll ? ((int)$latestRoll->roll_no) + 1 : $startingRoll + 1;
+
     
             // Generate registration number: branch_id + year + padded roll_no
             $newRegistrationNo = $branch_id . $year . str_pad($newRollNo, 4, '0', STR_PAD_LEFT);
@@ -314,12 +318,13 @@ class StudentController extends Controller
 
     // Update a student
     public function update(Request $request, Student $student)
-    {
+    { dd($request->all());
         $validatedData = $request->validate([
             'name' => 'required|string|max:100',
             'father_name' => 'nullable|string|max:100',
             'mother_name' => 'nullable|string|max:100',
             'phone_number' => 'nullable|string|max:20',
+            'date_of_birth' => 'nullable|date',
             'tana' => 'nullable|string|max:100',
             'vill' => 'nullable|string|max:100',
             'course_id' => 'nullable|exists:courses,id',

@@ -31,11 +31,11 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-[#006172]">{{ $category->name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <button onclick="openModal({{ $category->id }}, '{{ $category->name }}')" 
-                                        class="text-[#006172] hover:text-[#004d5a] mr-3">Edit</button>
+                                        class="text-[#f8fafa] btn bg-[#004d5a] p-3 rounded hover:text-[#e6f14d] mr-3">Edit</button>
                                 <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:text-red-800" 
+                                    <button type="submit" class="text-[#f8fafa] btn bg-red-600 p-3 rounded hover:text-[#e6f14d] mr-3" 
                                             onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             </td>
