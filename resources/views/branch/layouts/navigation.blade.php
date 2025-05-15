@@ -6,7 +6,7 @@
             <div class="flex items-center space-x-8">
                 <!-- Logo -->
                 <div class="shrink-0">
-                    <a href="{{ route('dashboard') }}" class="flex items-center">
+                    <a href="/branch/dashboard" class="flex items-center">
                         <x-application-logo class="block h-9 w-auto fill-current text-white hover:text-[#F37021] transition-colors duration-200" />
                         <span class="ml-2 text-3xl font-bold text-white hidden md:block">YSDB</span>
                     </a>

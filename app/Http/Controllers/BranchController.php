@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Branch;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Devfaysal\BangladeshGeocode\Models\Division;
@@ -181,14 +182,57 @@ class BranchController extends Controller
     /**
      * Branch dashboard
      */
-    public function dashboard()
-    {
-        if (!session('branch')) {
-            return redirect()->route('branch.login');
-        }
-
-        return view('branch.dashboard', ['branch' => session('branch')]);
+ // Controller (app/Http/Controllers/Branch/DashboardController.php)
+public function dashboard()
+{
+    $branch = session('branch');
+    
+    if (!$branch) {
+        return redirect()->route('branch.login');
     }
+
+    $branch_id = $branch['id'];
+    
+    $activestudents = Student::where('status', 'active')
+        ->where('branc_code', $branch_id)
+        ->with('branch', 'course')
+        ->orderBy('created_at', 'desc')
+        ->limit(5)
+        ->get();
+        
+    $pandingstudents = Student::where('status', 'panding')
+        ->where('branc_code', $branch_id)
+        ->with('branch', 'course')
+        ->orderBy('created_at', 'desc')
+        ->limit(5)
+        ->get();
+        
+    $students = Student::whereIn('status', ['active','completed'])
+        ->where('branc_code', $branch_id)
+        ->with('branch', 'course')
+        ->count();
+        
+    $totalActive = Student::where('status', 'active')
+        ->where('branc_code', $branch_id)
+        ->count();
+        
+    $totalPending = Student::where('status', 'panding')
+        ->where('branc_code', $branch_id)
+        ->count();
+    $totalPgraduate = Student::where('status', 'completed')
+        ->where('branc_code', $branch_id)
+        ->count();
+        
+    return view('branch.dashboard', compact(
+        'activestudents',
+        'pandingstudents',
+        'students',
+        'totalActive',
+        'totalPending',
+        'totalPgraduate',
+        'branch'
+    ));
+}
     
 
     /**

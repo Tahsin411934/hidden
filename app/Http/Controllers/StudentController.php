@@ -318,7 +318,7 @@ class StudentController extends Controller
 
     // Update a student
     public function update(Request $request, Student $student)
-    { dd($request->all());
+    { 
         $validatedData = $request->validate([
             'name' => 'required|string|max:100',
             'father_name' => 'nullable|string|max:100',

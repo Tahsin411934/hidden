@@ -15,6 +15,7 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Http\Request;
 
 
@@ -24,9 +25,7 @@ use App\Http\Controllers\CategoryController;
 Route::resource('signatures', SignatureController::class);
 
   Route::get('/', [HomepageController::class, 'Home']);
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -81,10 +80,21 @@ Route::get('/about-us', function () {
 Route::get('/contact-us', function () {
     return view('frontend.pages.contact-us');
  });
-
-
 Route::resource('notices', NoticeController::class);
 Route::get('/recent/notice', [NoticeController::class, 'frontendindex']);
+
+ Route::middleware('branch.auth')->group(function () {
+Route::get('/branch/panding/students', [StudentController::class, 'branchPandingStudent']);
+Route::get('/branch/active/students', [StudentController::class, 'branchActiveStudent']);
+Route::get('/branch/all/students', [StudentController::class, 'branchAllStudent']);
+Route::get('/branch/profile/{student_id}', [StudentController::class, 'branchshow'])->name('Branchstudents.show');
+Route::get('/branch/student/profile/{student_id}', [StudentController::class, 'branchStudentShow'])->name('Branchstudent.show');
+Route::get('branch/results/view', [ResultController::class, 'branchStudentresult']);
+Route::post('/brach/students/result', [ResultController::class, 'branchStudentresult'])->name('branch-student-result');
+   
+ });
+
+
 
 Route::post('/admit-card/bulk-print', [PrintController::class, 'bulkPrint'])->name('admit-print.bulk');
 // Course Resource Routes
@@ -103,12 +113,6 @@ Route::post('/branchstudents/verify-all/{branch_id}', [StudentController::class,
     ->name('students.verifyAllBranchStudents');
 
 Route::resource('students', StudentController::class);
-
-Route::get('/branch/panding/students', [StudentController::class, 'branchPandingStudent'])->middleware('branch.auth');
-Route::get('/branch/active/students', [StudentController::class, 'branchActiveStudent'])->middleware('branch.auth');
-Route::get('/branch/all/students', [StudentController::class, 'branchAllStudent'])->middleware('branch.auth');
-Route::get('/branch/profile/{student_id}', [StudentController::class, 'branchshow'])->name('Branchstudents.show')->middleware('branch.auth');
-Route::get('/branch/student/profile/{student_id}', [StudentController::class, 'branchStudentShow'])->name('Branchstudent.show')->middleware('branch.auth');
 
 
 

@@ -37,15 +37,21 @@ class Student extends Model
 
     public function branch()
     {
-        return $this->belongsTo(Branch::class, 'branc_code'); // Fixed relationship syntax
+        return $this->belongsTo(Branch::class, 'branc_code', 'id');
     }
 
-public function course()
-{
-    return $this->belongsTo(Course::class,'course_id');
-}
-public function marks()
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id');
+    }
+
+    public function marks()
     {
         return $this->hasMany(Mark::class);
+    }
+
+    public function getAverageMarksAttribute()
+    {
+        return $this->marks()->avg('total_obtain_marks');
     }
 }
